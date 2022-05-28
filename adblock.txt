@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 2.8
+! Version: 2.9
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 26 May 2022 20:36
+! Last modified: 28 May 2022 14:51
 ! Description: Фильтр рекламы и слежки на vk.com. Фильтр рассчитан и для m.vk.com
 
 ! Блокировка баннеров слева и частично в ленте
@@ -134,6 +134,8 @@ vk.com##.feed_friends_recomm
 vk.com###profile_friends_recomm
 vk.com###friends_possible_block
 vk.com###feed_filters
+vk.com###block_aliexpress-recommendations-carousel
+vk.com###recommended_narratives
 
 ! Универсальные правила для блокировки рекламных баннеров для блокировки будущих рекламных баннеров
 ||static.doubleclick.net/instream/ad_status.js^$domain=important
