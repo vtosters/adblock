@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 2.9
+! Version: 2.10
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 28 May 2022 14:51
+! Last modified: 28 May 2022 16:42
 ! Description: Фильтр рекламы и слежки на vk.com. Фильтр рассчитан и для m.vk.com
 
 ! Блокировка баннеров слева и частично в ленте
@@ -24,6 +24,7 @@ vk.com##div#left_ads
 vk.com##.ads_ads_box
 vk.com##.ads_ads_news_wrap
 ~vk.com##div[id^="vk_ads_"]
+vk.com#$##ads_left { position: absolute; top: -2500px; }
 
 ! Инициализация отключения рекламы в скрипты вк
 vk.com#%#//scriptlet("set-constant", "noAds", "true")
@@ -67,6 +68,7 @@ vk.com###system_msg
 ||mc.yandex.ru/metrika/watch.js^$domain=vk.com,important
 ||rs.mail.ru^$domain=vk.com,important
 ||google-analytics.com/analytics.js^$domain=important
+||mail.ru/k?
 
 ! Реклама групп с пометкой рекламы
 vk.com#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_marked_as_ads)
@@ -173,6 +175,7 @@ vk.com###settings_vkpay_promo_big_banner_container
 vk.com##.CatalogBlock__subscription, .CatalogSection__rightColumn > .CatalogSection__stickyColumn .CatalogBlock__separator
 vk.com##div#content > div._audio_page_layout.audio_page_layout.audio_page_layout2 > div._audio_page_content_block_wrap.audio_page_content_block_wrap > div.page_block._audio_page_content_block > div.audio_page_sections._audio_page_sections.clear_fix > div.audio_section.audio_w_covers._audio_section._audio_section__all.audio_section__all > div.audio_page_section_layout._audio_page_section_layout.has_friends_block > div.audio_page_all_layout_columns.clear_fix > div.audio_friends_list_wrap._audio_friends_list_wrap > div.audio_friends_list_content._audio_friends_list_content > div.audio_subscribe_promo
 vk.com##.audio_promo
+vk.com###content > div._audio_page_layout.audio_page_layout.audio_page_layout2 > div._audio_page_content_block_wrap.audio_page_content_block_wrap:nth-child(3) > div.audio_page_sections._audio_page_sections.clear_fix:last-child > div.audio_section._audio_section._audio_section__all.audio_section__all.clear_fix.audio_w_covers:last-child > div.CatalogSection.CatalogSection--divided.CatalogSection__my > div.CatalogBlock.CatalogBlock--divided:last-child > div.CatalogSection__columns > div.CatalogSection__rightColumn:last-child > div.CatalogSection__stickyColumn > div.CatalogBlock:last-child
 
 ! Промо сторис
 vk.com##.stories_feed_preview_item.story_feed_new_item.story_feed_new_item_promo
@@ -199,6 +202,8 @@ vk.com###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-ha
 
 ! Фикс удаления стилей адг
 vk.com#%#AG_onLoad(function(){window.icoNode = document.querySelector('head>link[rel*="shortcut"]')});
+vk.com#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
+vk.com#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
 
 ! Удаление актуальных новостей в РФ
 vk.com##aside[aria-label="Актуальные новости"]
