@@ -1,12 +1,11 @@
 [Adblock Plus 2.0]
-! Version: 2.10
+! Version: 2.11
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 28 May 2022 16:42
-! Description: Фильтр рекламы и слежки на vk.com. Фильтр рассчитан и для m.vk.com
+! Last modified: 24 July 2023 7:25
+! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
-~vk.com###vkMsg
 ##.ads300-thumb
 ##.ads600x200
 ##.ads_600x200
@@ -37,12 +36,12 @@ vk.com#%#//scriptlet("set-constant", "ya_direct", "false")
 vk.com#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
 
 ! Реклама общая в видео и тд
-||ad.mail.ru^$domain=vk.com,important
-||ad.mail.ru/static/admanhtml/rbadman-html5.min.js^$domain=vk.com,important
+||ad.mail.ru^$domain=vk.com|vk.ru,important
+||ad.mail.ru/static/admanhtml/rbadman-html5.min.js^$domain=vk.com|vk.ru,important
 ||vk.com/al_video.php?act=ads_stat^$domain=important
 ||vk.com/js/cmodules/web/ads_light.$script
 ||vk.com/css/al/ads_light.$script
-||ad.mail.ru/vp/*&duration=$domain=vk.com
+||ad.mail.ru/vp/*&duration=domain=vk.com|vk.ru,important
 ||vk.com/ads_rotate^$domain=important
 
 ! Рекламные баннеры в ленте
@@ -64,9 +63,9 @@ vk.com#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
 vk.com###system_msg
 
 ! Аналитика
-||trk.mail.ru$domain=vk.com,important
-||mc.yandex.ru/metrika/watch.js^$domain=vk.com,important
-||rs.mail.ru^$domain=vk.com,important
+||trk.mail.ru$domain=vk.com|vk.ru,important
+||mc.yandex.ru/metrika/watch.js^$domain=vk.com|vk.ru,important
+||rs.mail.ru^$domain=vk.com|vk.ru,important
 ||google-analytics.com/analytics.js^$domain=important
 ||mail.ru/k?
 
@@ -142,7 +141,7 @@ vk.com###recommended_narratives
 ! Универсальные правила для блокировки рекламных баннеров для блокировки будущих рекламных баннеров
 ||static.doubleclick.net/instream/ad_status.js^$domain=important
 ||googleads.g.doubleclick.net/pagead/id^$domain=important
-||ad.mail.ru/static/admanhtml/rbadman-html5.min.js^$domain=vk.com,important
+||ad.mail.ru/static/admanhtml/rbadman-html5.min.js^$domain=vk.com|vk.ru,important
 vk.com##[class^="ads_ad_"]
 vk.com##[class^="ads"]
 vk.com##.ads_ads_news_wrap
@@ -153,17 +152,20 @@ vk.com##div[data-ad]
 vk.com##div[ads_left]
 
 ! Слежка
-||tracker-api.my.com$domain=vk.com,important
-||top-fwz1.mail.ru/js/code.js$domain=vk.com,important
-||r.mail.ru$domain=vk.com,important
-||tns-counter.ru^$domain=vk.com,important
-||stats.vk-portal.net/uxzoom$domain=vk.com,important
-||stat.pladform.ru$domain=vk.com,important
-||stats.vk-portal.net^$domain=vk.com,important
+||tracker-api.my.com$domain=vk.com|vk.ru,important
+||top-fwz1.mail.ru/js/code.js$domain=vk.com|vk.ru,important
+||r.mail.ru$domain=vk.com|vk.ru,important
+||tns-counter.ru^$domain=vk.com|vk.ru,important
+||stats.vk-portal.net/uxzoom$domain=vk.com|vk.ru,important
+||stat.pladform.ru$domain=vk.com|vk.ru,important
+||stats.vk-portal.net^$domain=vk.com|vk.ru,important
 ||vk.com/rtrg?^$domain=vk.com,important
 ||vk.com/js/al/mrtarg.js^$domain=vk.com,important
 ||vk.com/css/al/mrtarg.^$domain=vk.com,important
-||stats.vk-portal.net/web-stats$domain=vk.com,important
+||vk.ru/rtrg?^$domain=vk.ru,important
+||vk.ru/js/al/mrtarg.js^$domain=vk.ru,important
+||vk.ru/css/al/mrtarg.^$domain=vk.ru,important
+||stats.vk-portal.net/web-stats$domain=vk.com|vk.ru,important
 
 ! Баннер VK Pay в настройках
 vk.com###settings_ps_promo_big_banner_container
@@ -191,6 +193,7 @@ vk.com##.post_suggest._post_suggest
 
 ! Баннер с просьбой юзать мобильный вк в клипах
 vk.com##.ShortVideoStub
+vk.com###feed_blog_reminder
 
 ! Новая реклама в ленте
 vk.com#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_text_name_explain_promoted_post)
@@ -240,3 +243,209 @@ m.vk.com##.wall_item.feedAssistance.GroupsRecommendedSlider
 m.vk.com##.wall_item.feedAssistance.friendsRecommendedSliderWrap
 m.vk.com##.wall_item.post_exploreBait
 m.vk.com##.wall_item.post_withExtraHeader
+
+! vk.ru поддержка
+
+! Блокировка баннеров слева и частично в ленте
+vk.ru###ads_left
+vk.ru##.audio_subscribe_promo__content
+vk.ru###apps_ads_wrap
+vk.ru###ads_special_promo_wrap
+vk.ru###apps_ads_wrap
+vk.ru##._ads_promoted_post_data_w
+vk.ru##.ads_ads_news_wrap
+vk.ru##div#left_ads
+vk.ru##.ads_ads_box
+vk.ru##.ads_ads_news_wrap
+~vk.ru##div[id^="vk_ads_"]
+vk.ru#$##ads_left { position: absolute; top: -2500px; }
+
+! Инициализация отключения рекламы в скрипты вк
+vk.ru#%#//scriptlet("set-constant", "noAds", "true")
+vk.ru#%#//scriptlet("set-constant", "noAdsAtAll", "true")
+vk.ru#%#//scriptlet("set-constant", "no_left_ads", "true")
+vk.ru#%#//scriptlet("set-constant", "no_ads", "true")
+vk.ru#%#//scriptlet("set-constant", "isNoAdsForce", "true")
+vk.ru#%#//scriptlet("set-constant", "hide_ad", "true")
+vk.ru#%#//scriptlet("set-constant", "ya_direct", "false")
+vk.ru#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
+
+! Реклама общая в видео и тд
+||vk.ru/al_video.php?act=ads_stat^$domain=important
+||vk.ru/js/cmodules/web/ads_light.$script
+||vk.ru/css/al/ads_light.$script
+||vk.ru/ads_rotate^$domain=important
+
+! Рекламные баннеры в ленте
+||vk.ru/al_feed.php?ads_section^$domain=vk.ru,important
+
+! Костыли
+@@://vk.ru/ads$document,~third-party
+@@://vk.ru/exchange$document,important
+@@||oauth.vk.ru$document
+@@||login.vk.ru/?act=openapi$domain=220vk.ru,stealth
+@@||vk.ru/vkpay$stealth
+@@||oauth.vk.ru/authorize?
+@@api_url=http://api.vk.ru/api.php$jsinject
+@@api_url=https://api.vk.ru/api.php$jsinject
+
+! Отправка логов и ошибок
+||vk.ru/errors.php^$domain=vk.ru,important
+||vk.ru/upload_fails.php^$domain=vk.ru,important
+vk.ru###system_msg
+
+! Реклама групп с пометкой рекламы
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_marked_as_ads)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="wall_marked_as_ads"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_marked_as_ads']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_marked_as_ads']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_marked_as_ads']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="wall_marked_as_ads"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_marked_as_ads)
+vk.ru##.wall_marked_as_ads
+
+! Реклама групп с сурса
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="Post__copyright"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.Post__copyright']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.Post__copyright']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.Post__copyright']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="Post__copyright"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.Post__copyright)
+vk.ru##.Post__copyright
+
+! Реклама интересных авторов
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_authors_rec)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="wall_authors_rec"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_authors_rec']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_authors_rec']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_authors_rec']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="wall_authors_rec"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_authors_rec)
+vk.ru##.wall_authors_rec
+
+! Рекомендации лайв трансляций в ленте
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_live_recommended)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="wall_live_recommended"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_live_recommended']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_live_recommended']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.wall_live_recommended']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="wall_live_recommended"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_live_recommended)
+vk.ru##.wall_live_recommended
+
+! Клипы в ленте
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.ShortVideoFeedBlock)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="ShortVideoFeedBlock"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.ShortVideoFeedBlock']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.ShortVideoFeedBlock']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.ShortVideoFeedBlock']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="ShortVideoFeedBlock"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.ShortVideoFeedBlock)
+vk.ru##.ShortVideoFeedBlock
+vk.ru###feed_rows > div.feed_row:nth-child(9) > div.page_block.ShortVideoFeedBlock
+vk.ru###page_block.ShortVideoFeedBlock
+
+! Баннеры с приложениями вк в ленте
+vk.ru##.apps_feedRightAppsBlock_new_apps.apps_feedRightAppsBlock.page_block
+vk.ru##.apps_feedRightAppsBlock_single_app.apps_feedRightAppsBlock.page_block
+vk.ru##.apps_feedRightAppsBlock_collaborative_recommend_apps.apps_feedRightAppsBlock.page_block
+
+! Рекомендации групп и друзей в ленте
+vk.ru###groups_filters_wrap > .page_block
+vk.ru###groups_filters_wrap
+vk.ru###feed_recommends
+vk.ru##.feed_groups_recomm
+vk.ru##.feed_friends_recomm
+vk.ru###profile_friends_recomm
+vk.ru###friends_possible_block
+vk.ru###feed_filters
+vk.ru###block_aliexpress-recommendations-carousel
+vk.ru###recommended_narratives
+
+! Универсальные правила для блокировки рекламных баннеров для блокировки будущих рекламных баннеров
+vk.ru##[class^="ads_ad_"]
+vk.ru##[class^="ads"]
+vk.ru##.ads_ads_news_wrap
+vk.ru##._ads_promoted_post_data_w
+vk.ru##div#left_ads
+vk.ru##div[data-ad-view]
+vk.ru##div[data-ad]
+vk.ru##div[ads_left]
+
+! Баннер VK Pay в настройках
+vk.ru###settings_ps_promo_big_banner_container
+vk.ru##.settings_vkpay_promo_banner_link_a
+vk.ru###settings_vkpay_promo_big_banner_container
+
+! Промо реклама музыки
+||vk.ru/al_audio.php?act=need_show_promo^
+vk.ru##.CatalogBlock__subscription, .CatalogSection__rightColumn > .CatalogSection__stickyColumn .CatalogBlock__separator
+vk.ru##div#content > div._audio_page_layout.audio_page_layout.audio_page_layout2 > div._audio_page_content_block_wrap.audio_page_content_block_wrap > div.page_block._audio_page_content_block > div.audio_page_sections._audio_page_sections.clear_fix > div.audio_section.audio_w_covers._audio_section._audio_section__all.audio_section__all > div.audio_page_section_layout._audio_page_section_layout.has_friends_block > div.audio_page_all_layout_columns.clear_fix > div.audio_friends_list_wrap._audio_friends_list_wrap > div.audio_friends_list_content._audio_friends_list_content > div.audio_subscribe_promo
+vk.ru##.audio_promo
+vk.ru###content > div._audio_page_layout.audio_page_layout.audio_page_layout2 > div._audio_page_content_block_wrap.audio_page_content_block_wrap:nth-child(3) > div.audio_page_sections._audio_page_sections.clear_fix:last-child > div.audio_section._audio_section._audio_section__all.audio_section__all.clear_fix.audio_w_covers:last-child > div.CatalogSection.CatalogSection--divided.CatalogSection__my > div.CatalogBlock.CatalogBlock--divided:last-child > div.CatalogSection__columns > div.CatalogSection__rightColumn:last-child > div.CatalogSection__stickyColumn > div.CatalogBlock:last-child
+
+! Промо сторис
+vk.ru##.stories_feed_preview_item.story_feed_new_item.story_feed_new_item_promo
+
+! Popup с просьбой включить нотифаи для браузера
+vk.ru##div#box_layer > div.popup_box_container.PushNotifierPopup__popup-box_type--suggest
+
+! Бесполезный диалог на странице
+vk.ru##.profile_rate_warning
+
+! Скрытие рекомендаций для написания поста
+vk.ru##.post_suggest._post_suggest
+
+! Баннер с просьбой юзать мобильный вк в клипах
+vk.ru##.ShortVideoStub
+vk.ru###feed_blog_reminder
+
+! Новая реклама в ленте
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_text_name_explain_promoted_post)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="wall_text_name_explain_promoted_post"]']
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.MarketItemsFeedBlock)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="MarketItemsFeedBlock"]']
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.block_aliexpress-recommendations-carousel)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="block_aliexpress-recommendations-carousel"]']
+
+! Фикс удаления стилей адг
+vk.ru#%#AG_onLoad(function(){window.icoNode = document.querySelector('head>link[rel*="shortcut"]')});
+vk.ru#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
+vk.ru#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
+
+! Удаление актуальных новостей в РФ
+vk.ru##aside[aria-label="Актуальные новости"]
+
+! Кукис варн
+vk.ru###cookies_policy_wrap
+
+! Ошибка старого браузера
+vk.ru##.OldBrowser
+
+! Новые рекомендации видео
+vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.FeedVideosForYou)
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="FeedVideosForYou"]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.FeedVideosForYou']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.FeedVideosForYou']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.FeedVideosForYou']
+vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="FeedVideosForYou"])
+vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.FeedVideosForYou)
+vk.ru##.FeedVideosForYou
+vk.ru###feed_rows > div.feed_row:nth-child(9) > div.page_block.FeedVideosForYou
+vk.ru###page_block.FeedVideosForYou
+
+! Плашка донута под постами
+vk.ru##.ReplyBoxDonut
+
+! m.vk поддержка
+m.vk.ru#?#.wall_item:has(> div.wi_body > div.ads_mark)
+m.vk.ru##.wall_item[data-ad-view]
+m.vk.ru##.wi_head[href*="/away.php?to="]
+m.vk.ru##.wi_head[href*="/away.php?to="] + .wi_body
+m.vk.ru#?#.wall_item:has(> div.wi_body > a.copyright_label)
+m.vk.ru##[class^="_ads_block_data_w"]
+m.vk.ru##.wall_item.feedAssistance.GroupsRecommendedSlider
+m.vk.ru##.wall_item.feedAssistance.friendsRecommendedSliderWrap
+m.vk.ru##.wall_item.post_exploreBait
+m.vk.ru##.wall_item.post_withExtraHeader
