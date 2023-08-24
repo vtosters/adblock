@@ -2,7 +2,7 @@
 ! Version: 2.12
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 23 August 2023 16:41
+! Last modified: 24 August 2023 16:41
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -126,6 +126,7 @@ vk.com##.apps_feedRightAppsBlock_new_apps.apps_feedRightAppsBlock.page_block
 vk.com##.apps_feedRightAppsBlock_single_app.apps_feedRightAppsBlock.page_block
 vk.com##.apps_feedRightAppsBlock_collaborative_recommend_apps.apps_feedRightAppsBlock.page_block
 vk.com##.page_block.BookmarkGameBlock
+vk.ru##.page_block.BookmarkGameBlock
 
 ! Рекомендации групп и друзей в ленте
 vk.com###groups_filters_wrap > .page_block
@@ -453,4 +454,6 @@ m.vk.ru##.wall_item.post_withExtraHeader
 
 ! Навязывание проверки номера
 vk.com###react_rootCheckValidationPhone
+vk.ru###react_rootCheckValidationPhone
 vk.com##body:style(position:static!important)
+vk.ru###body:style(position:static!important)
