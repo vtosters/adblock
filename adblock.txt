@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 2.12
+! Version: 2.13
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 24 August 2023 16:41
+! Last modified: 24 August 2023 19:59
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -457,3 +457,9 @@ vk.com###react_rootCheckValidationPhone
 vk.ru###react_rootCheckValidationPhone
 vk.com##body:style(position:static!important)
 vk.ru###body:style(position:static!important)
+
+! Блокировка рекламного copyright в десктоп версии (работает только с адгуардом)
+vk.com##.wall_wrap div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
+vk.com###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
+vk.ru##.wall_wrap div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
+vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
