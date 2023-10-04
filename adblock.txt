@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 2.13
+! Version: 2.14
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 24 August 2023 19:59
+! Last modified: 4 October 2023 22:20
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -78,6 +78,7 @@ vk.com##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info >
 vk.com###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="wall_marked_as_ads"])
 vk.com##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_marked_as_ads)
 vk.com##.wall_marked_as_ads
+vk.com###page_wall_posts > div.post_marked_as_ads
 
 ! Реклама групп с сурса
 vk.com#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
@@ -88,6 +89,7 @@ vk.com##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info >
 vk.com###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="Post__copyright"])
 vk.com##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.Post__copyright)
 vk.com##.Post__copyright
+vk.com###page_wall_posts > div.Post--copyright
 
 ! Реклама интересных авторов
 vk.com#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_authors_rec)
@@ -219,6 +221,10 @@ vk.com###cookies_policy_wrap
 ! Ошибка старого браузера
 vk.com##.OldBrowser
 
+! Рекомендательные технологии
+vk.com##.LegalRecommendationsLinkLeftMenuAuthorized
+vk.com##.WideSeparator--legalRecommendationsLink
+
 ! Новые рекомендации видео
 vk.com#?##page_wall_posts > div[id^="post-"]:-abp-has(.FeedVideosForYou)
 vk.com###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="FeedVideosForYou"]']
@@ -305,6 +311,7 @@ vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > 
 vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="wall_marked_as_ads"])
 vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_marked_as_ads)
 vk.ru##.wall_marked_as_ads
+vk.ru###page_wall_posts > div.post_marked_as_ads
 
 ! Реклама групп с сурса
 vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
@@ -315,6 +322,7 @@ vk.ru##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > 
 vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="Post__copyright"])
 vk.ru##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.Post__copyright)
 vk.ru##.Post__copyright
+vk.ru###page_wall_posts > div.Post--copyright
 
 ! Реклама интересных авторов
 vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_authors_rec)
@@ -425,6 +433,10 @@ vk.ru###cookies_policy_wrap
 ! Ошибка старого браузера
 vk.ru##.OldBrowser
 
+! Рекомендательные технологии
+vk.ru##.LegalRecommendationsLinkLeftMenuAuthorized
+vk.ru##.WideSeparator--legalRecommendationsLink
+
 ! Новые рекомендации видео
 vk.ru#?##page_wall_posts > div[id^="post-"]:-abp-has(.FeedVideosForYou)
 vk.ru###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="FeedVideosForYou"]']
@@ -457,9 +469,3 @@ vk.com###react_rootCheckValidationPhone
 vk.ru###react_rootCheckValidationPhone
 vk.com##body:style(position:static!important)
 vk.ru###body:style(position:static!important)
-
-! Блокировка рекламного copyright в десктоп версии (работает только с адгуардом)
-vk.com##.wall_wrap div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
-vk.com###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
-vk.ru##.wall_wrap div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
-vk.ru###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.PostHeader.PostHeader--compact.PostHeader--inPost.js-PostHeader > div.PostHeaderInfo.PostHeaderInfo--inHeader > div.PostHeaderSubtitle.PostHeaderSubtitle--layoutDefault > a.PostHeaderSubtitle__item[href*="/away.php?to="]']
