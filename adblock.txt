@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 3.1
+! Version: 3.2
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 7 October 2023 15:52
+! Last modified: 7 October 2023 16:08
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -38,9 +38,12 @@ vk.*#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
 ! Общая реклама и метрика
 ||ad.mail.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||ad.mail.ru/static/admanhtml/rbadman-html5.min.js^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
-||vk.com/al_video.php?act=ads_stat^$domain=important
-||vk.com/js/cmodules/web/ads_light.$script
-||vk.com/css/al/ads_light.$script
+||vk.*/al_video.php?act=ads_stat^$domain=important
+||vk.*/js/cmodules/web/ads_light.$script
+||vk.*/css/al/ads_light.$script
+||vk.*/dist/web/ads_light.$script
+||vk.*/dist/web/performance_observers.$script
+||vk.*/dist/web/jobs_devtools_notification.$script
 ||ad.mail.ru/vp/*&duration=domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||stats.vk-portal.net^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||*.ms.vk.*^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
@@ -50,7 +53,7 @@ vk.*#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
 ||mc.yandex.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||an.yandex.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||scorecardresearch.com^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
-||vk.com/ads_rotate^$domain=important
+||vk.*/ads_rotate^$domain=important
 ||https://vk.*/rtrg?$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -84,9 +87,6 @@ vk.*#$##ads_left { position: absolute; top: -2500px; }
 ||vk.*/errors.php^
 ||vk.*/upload_fails.php^
 vk.*###system_msg
-
-! Блокировка разных подсказок
-||api.vk.*/method/account.getHelpHints
 
 ! Реклама групп с пометкой рекламы
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_marked_as_ads)
