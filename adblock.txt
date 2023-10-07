@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Version: 3.0
+! Version: 3.1
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 7 October 2023 15:13
+! Last modified: 7 October 2023 15:52
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 
 ! Блокировка баннеров слева и частично в ленте
@@ -43,11 +43,12 @@ vk.*#%#//scriptlet("set-constant", "yaDirectAdActive", "false")
 ||vk.com/css/al/ads_light.$script
 ||ad.mail.ru/vp/*&duration=domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||stats.vk-portal.net^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
-||stats.vk-portal.net^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||*.ms.vk.*^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||tns-counter.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||mail.ru/k?$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||top-fwz1.mail.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
+||mc.yandex.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
+||an.yandex.ru^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||scorecardresearch.com^$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
 ||vk.com/ads_rotate^$domain=important
 ||https://vk.*/rtrg?$domain=vk.com|vk.ru|m.vk.com|m.vk.ru
@@ -98,6 +99,10 @@ vk.*##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.wall_marked_as_ads)
 vk.*##.wall_marked_as_ads
 vk.*###page_wall_posts > div.post_marked_as_ads
 vk.*###page_wall_posts > div.post[data-ad-block-uid]
+vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.ui_actions_menu_item[href*="ad_info.php"])
+vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.ui_actions_menu_item[data-task-click="AdsLight/copy_marker_id"])
+vk.*#?##feed_rows > div[class="feed_row "]:has(.ui_actions_menu_item[href*="ad_info.php"])
+vk.*#?##feed_rows > div[class="feed_row "]:has(.ui_actions_menu_item[data-task-click="AdsLight/copy_marker_id"])
 
 ! Реклама групп с сурса
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
@@ -109,6 +114,7 @@ vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[c
 vk.*##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.Post__copyright)
 vk.*##.Post__copyright
 vk.*###page_wall_posts > div.Post--copyright
+vk.*###feed_rows > div[class="feed_row "] > div.Post--copyright
 
 ! Реклама интересных авторов
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_authors_rec)
@@ -165,7 +171,6 @@ vk.*##.GroupsRecommendationsBlock
 vk.*##.FriendsSuggestionsBlock
 vk.*###friends_possible_block
 vk.*###feed_friends_recomm:not(.similar_groups_block)
-vk.*###feed_filters
 vk.*###block_aliexpress-recommendations-carousel
 vk.*###recommended_narratives
 
