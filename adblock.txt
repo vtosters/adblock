@@ -1,5 +1,5 @@
 [Adblock Plus 2.0]
-! Version: 3.4
+! Version: 3.5
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
 ! Last modified: 16 October 2023 17:01
@@ -187,6 +187,7 @@ vk.*##div[data-ad]
 vk.*##div[ads_left]
 vk.*##.post[data-ad]
 vk.*##.post[data-ad-view]
+vk.*##div[id^="postadsite_"]
 
 ! Баннер VK Pay в настройках
 vk.*###settings_ps_promo_big_banner_container
@@ -228,6 +229,7 @@ vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has=
 vk.*#%#AG_onLoad(function(){window.icoNode = document.querySelector('head>link[rel*="shortcut"]')});
 vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 vk.*#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
+vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 
 ! Удаление актуальных новостей в РФ
 vk.*##aside[aria-label="Актуальные новости"]
