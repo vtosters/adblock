@@ -230,7 +230,6 @@ vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.block_aliexpress-recommenda
 vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="block_aliexpress-recommendations-carousel"]']
 
 ! Фикс удаления стилей адг
-vk.*#%#AG_onLoad(function(){window.icoNode = document.querySelector('head>link[rel*="shortcut"]')});
 vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 vk.*#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
 vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
