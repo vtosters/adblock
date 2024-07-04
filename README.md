@@ -10,8 +10,4 @@
 
 О найденных багах/проблемах с блокировкой сообщать в [issues](https://github.com/vtosters/adblock/issues)
 
-Зеркало на нашем [Git](https://git.devshelter.su/gdlbo/adblock)
-
-Зеркало на [Github](https://github.com/vtosters/adblock)
-
-Большое спасибо ребятам из [VK Next](https://vknext.net) и конечно же [Adguard](https://adguard.com) за лучший адблок
+Большое спасибо разработчикам из [VK Next](https://vknext.net) и конечно же [Adguard](https://adguard.com) за лучший адблок
