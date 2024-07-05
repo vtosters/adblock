@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VK Ads Fixes
 // @namespace    https://vtosters.app/
-// @version      0.1
+// @version      0.2
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @author       gdlbo
 // @match        https://vk.com/*
@@ -9,36 +9,82 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
-    // Function to modify the VK object and disable ads-related properties
     function modifyVkObject() {
-        // Check if the VK object exists in the global scope
         if (window.vk) {
-            // Set ads rotation interval to the maximum safe integer value
-            window.vk.ads_rotate_interval = Number.MAX_SAFE_INTEGER;
+            // Set the ad rotation interval to the maximum safe integer value to prevent ad load
+            Object.defineProperty(window.vk, 'ads_rotate_interval', {
+                value: Number.MAX_SAFE_INTEGER,
+                writable: false,
+            });
 
             if (window.vk.audioAdsConfig) {
-                // Disable audio ads and reset related properties
-                window.vk.audioAdsConfig.enabled = false;
-                window.vk.audioAdsConfig.sections = [];
-                window.vk.audioAdsConfig.day_limit_reached = false;
+                // Disable audio ads and set day limit as reached
+                Object.defineProperties(window.vk.audioAdsConfig, {
+                    'enabled': {
+                        value: false,
+                        writable: false,
+                    },
+                    'sections': {
+                        value: [],
+                        writable: false,
+                    },
+                    'day_limit_reached': {
+                        value: false,
+                        writable: false,
+                    },
+                });
             }
 
-            // Disable user info stats and other related properties
-            window.vk.pe.send_user_info_stats = 0;
-            window.vk.pe.force_send_user_info = 0;
-            window.vk.pe.send_user_info_on_localhost = 0;
-            window.vk.pe.send_navigation_stats_in_spa = 0;
-            window.vk.pe.log_send_user_info_errors = 0;
+            // Disable sending user info stats and navigation stats in SPA
+            Object.defineProperties(window.vk.pe, {
+                'send_user_info_stats': {
+                    value: 0,
+                    writable: false,
+                },
+                'force_send_user_info': {
+                    value: 0,
+                    writable: false,
+                },
+                'send_user_info_on_localhost': {
+                    value: 0,
+                    writable: false,
+                },
+                'send_navigation_stats_in_spa': {
+                    value: 0,
+                    writable: false,
+                },
+                'log_send_user_info_errors': {
+                    value: 0,
+                    writable: false,
+                },
+            });
 
-            // Disable left ads
-            window.vk.ads_can_show = 0;
-            window.vk.leftads = "";
+            // Set error monitoring config to localhost to prevent sending error data
+            Object.defineProperties(window.vk.cfg.error_monitoring_config, {
+                'dsn': {
+                    value: 'http://127.0.0.1',
+                    writable: false,
+                },
+            });
 
-            // Disable stats by setting the transport URL to localhost
-            window.vk.wsTransport = "http://127.0.0.1";
+            // Disable ads and stats to localhost
+            Object.defineProperties(window.vk, {
+                'ads_can_show': {
+                    value: 0,
+                    writable: false,
+                },
+                'leftads': {
+                    value: '',
+                    writable: false,
+                },
+                'wsTransport': {
+                    value: 'http://127.0.0.1',
+                    writable: false,
+                },
+            });
         }
 
         // Check if the AdsLight object exists in the global scope
@@ -48,8 +94,8 @@
         }
 
         // Override ads-related functions with empty functions
-        window.__adsSet = function() {};
-        window.__adsUpdate = function() {};
+        window.__adsSet = function () { };
+        window.__adsUpdate = function () { };
 
         // Set flags to disable ads
         window.noAds = true;
@@ -62,11 +108,9 @@
         window.yaDirectAdActive = false;
     }
 
-    // Apply modifications immediately
     modifyVkObject();
 
-    // Check for changes to the `vk` object every 30 seconds and reapply modifications
-    setInterval(() => {
-        modifyVkObject();
-    }, 30000);
+    const interval = window.navigator?.hardwareConcurrency ? 30_000 / navigator.hardwareConcurrency : 30_000;
+
+    setInterval(modifyVkObject, interval);
 })();
