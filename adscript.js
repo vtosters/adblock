@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VK Ads Fixes
 // @namespace    https://vtosters.app/
-// @version      0.3
+// @version      0.4
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @author       gdlbo
 // @match        https://vk.com/*
@@ -177,14 +177,20 @@
                 'enabled': {
                     value: false,
                     writable: false,
+                    configurable: false,
+                    enumerable: false
                 },
                 'sections': {
                     value: [],
                     writable: false,
+                    configurable: false,
+                    enumerable: false
                 },
                 'day_limit_reached': {
                     value: false,
                     writable: false,
+                    configurable: false,
+                    enumerable: false
                 },
             });
         }
@@ -195,6 +201,8 @@
             'dsn': {
                 value: 'http://127.0.0.1',
                 writable: false,
+                configurable: false,
+                enumerable: false
             },
         });
     };
@@ -204,18 +212,26 @@
             'ads_can_show': {
                 value: 0,
                 writable: false,
+                configurable: false,
+                enumerable: false
             },
             'leftads': {
                 value: '',
                 writable: false,
+                configurable: false,
+                enumerable: false
             },
             'wsTransport': {
                 value: 'http://127.0.0.1',
                 writable: false,
+                configurable: false,
+                enumerable: false
             },
             'ads_rotate_interval': {
                 value: Number.MAX_SAFE_INTEGER,
                 writable: false,
+                configurable: false,
+                enumerable: false
             }
         });
     };
