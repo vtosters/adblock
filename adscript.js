@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VK Ads Fixes
 // @namespace    https://vtosters.app/
-// @version      0.4
+// @version      0.5
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @author       gdlbo
 // @match        https://vk.com/*
@@ -176,12 +176,6 @@
             Object.defineProperties(audioAdsConfig, {
                 'enabled': {
                     value: false,
-                    writable: false,
-                    configurable: false,
-                    enumerable: false
-                },
-                'sections': {
-                    value: [],
                     writable: false,
                     configurable: false,
                     enumerable: false
