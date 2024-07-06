@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         VK Ads Fixes
+// @name:ru      Правки рекламы ВКонтакте
 // @namespace    https://vtosters.app/
 // @version      0.5
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
