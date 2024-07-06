@@ -303,7 +303,7 @@
         }
     }
 
-    function remaway() {
+    function removeAway() {
         const links = document.getElementsByTagName("a");
 
         for (let i = 0; i < links.length; i++) {
@@ -311,6 +311,11 @@
                 links[i].href = decodeLink(links[i].href);
             }
         }
+    }
+
+    function removeAdsFeed() {
+        const adsBlocks = document.querySelectorAll('div._ads_block_data_w');
+        adsBlocks.forEach(block => block.remove());
     }
 
     if (window.vk) {
@@ -332,5 +337,8 @@
         window.__adsUpdate = function () { };
     }
 
-    setInterval(remaway, window.navigator?.hardwareConcurrency ? (30_000 / navigator.hardwareConcurrency) : 30_000);
+    setInterval(() => {
+        removeAway();
+        removeAdsFeed();
+    }, window.navigator?.hardwareConcurrency ? (30_000 / navigator.hardwareConcurrency) : 30_000);
 })();
