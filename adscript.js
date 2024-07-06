@@ -9,6 +9,8 @@
 // @match        https://vk.com/*
 // @match        https://vk.ru/*
 // @grant        none
+// @downloadURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.user.js
+// @updateURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.meta.js
 // ==/UserScript==
 
 (function () {
@@ -168,16 +170,6 @@
             "js_errors_no_write_uncaught_errors",
             "tgb_adblock_protection",
             "post_adblock_protection_promo",
-            "eager_error_monitoring",
-            "mini_apps_performance_close_app_empty_event",
-            "mini_apps_performance_iframe_errors",
-            "mini_apps_performance_web",
-            "mini_apps_send_my_tracker_activity",
-            "post_click_analytics_int_ext_link_click_web",
-            "posting_track_event_count",
-            "unique_adblock_users",
-            "audio_my_tracker_web",
-            "mini_apps_send_stat_arguments_bridge_events_sdk"
         ]) {
             delete vkParts[key];
         }
@@ -266,6 +258,35 @@
         }
     };
 
+    function decodeLink(link) {
+        const httpOffset = link.search("http%3A%2F%2F");
+        const httpsOffset = link.search("https%3A%2F%2F");
+        const postOffset = link.search(/&post=/g);
+        const ccKeyOffset = link.search(/&cc_key=/g);
+        const offset = httpsOffset !== -1 ? httpsOffset : httpOffset;
+
+        if (postOffset === -1 && ccKeyOffset === -1) {
+            return decodeURIComponent(link.substring(offset));
+        } else if (postOffset !== -1 && ccKeyOffset === -1) {
+            return decodeURIComponent(link.substring(offset, postOffset));
+        } else if (postOffset === -1 && ccKeyOffset !== -1) {
+            return decodeURIComponent(link.substring(offset, ccKeyOffset));
+        } else {
+            const endOffset = Math.min(postOffset, ccKeyOffset);
+            return decodeURIComponent(link.substring(offset, endOffset));
+        }
+    }
+
+    function remaway() {
+        const links = document.getElementsByTagName("a");
+
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].href.match(/away.php/)) {
+                links[i].href = decodeLink(links[i].href);
+            }
+        }
+    }
+
     if (window.vk) {
         modifyVkPart(window.vk.pe);
         modifyAudioAdsConfig(window.vk.audioAdsConfig);
@@ -284,4 +305,6 @@
         window.__adsSet = function () { };
         window.__adsUpdate = function () { };
     }
+
+    setInterval(remaway, window.navigator?.hardwareConcurrency ? (30_000 / navigator.hardwareConcurrency) : 30_000);
 })();
