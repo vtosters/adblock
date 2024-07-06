@@ -2,13 +2,14 @@
 // @name         VK Ads Fixes
 // @name:ru      Правки рекламы ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      1.2
+// @version      1.3
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @author       gdlbo
 // @match        https://vk.com/*
 // @match        https://vk.ru/*
 // @grant        none
+// @run-at       document-start
 // @downloadURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.user.js
 // @updateURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.meta.js
 // ==/UserScript==
@@ -195,7 +196,9 @@
             "log_fetch_requests",
             "log_fetch_requests_get",
             "post_adguard_protection_promo",
-            "extended_ajax_logging"
+            "extended_ajax_logging",
+            "messenger_mediascope_stats_collect",
+            "audio_player_stats_web"
         ]) {
             delete vkParts[key];
         }
@@ -313,11 +316,22 @@
         }
     }
 
-    function removeBlocks(blockClass) {
-        const blocks = document.querySelectorAll(`div.${blockClass}`);
-        blocks.forEach(block => block.remove());
+    function removeElementById(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            console.log(`Removing element with id: ${id}`);
+            element.remove();
+        }
     }
 
+    function removeBlocks(blockClass) {
+        const blocks = document.querySelectorAll(`div.${blockClass}`);
+        blocks.forEach(block => {
+            console.log(`Removing block with id: ${block.id}`);
+            block.remove();
+        });
+    }
+    
     if (window.vk) {
         modifyVkPart(window.vk.pe);
         modifyAudioAdsConfig(window.vk.audioAdsConfig);
@@ -330,6 +344,7 @@
         onChangeErrorMonitoringConfig(modifyErrorMonitoringConfig);
 
         if (window.AdsLight) {
+            window.AdsLight.isNoAds();
             window.AdsLight.isNoAdsForce();
         }
 
@@ -340,5 +355,6 @@
     setInterval(() => {
         removeAway();
         removeBlocks('_ads_block_data_w');
+        removeElementById('ads_left');
     }, window.navigator?.hardwareConcurrency ? (30_000 / navigator.hardwareConcurrency) : 30_000);
 })();
