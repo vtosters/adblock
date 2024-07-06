@@ -4,6 +4,7 @@
 // @namespace    https://vtosters.app/
 // @version      0.5
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
+// @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @author       gdlbo
 // @match        https://vk.com/*
 // @match        https://vk.ru/*
