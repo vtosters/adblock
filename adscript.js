@@ -2,7 +2,7 @@
 // @name         VK Ads Fixes
 // @name:ru      Правки рекламы ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      0.5
+// @version      0.6
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @author       gdlbo
@@ -168,6 +168,16 @@
             "js_errors_no_write_uncaught_errors",
             "tgb_adblock_protection",
             "post_adblock_protection_promo",
+            "eager_error_monitoring",
+            "mini_apps_performance_close_app_empty_event",
+            "mini_apps_performance_iframe_errors",
+            "mini_apps_performance_web",
+            "mini_apps_send_my_tracker_activity",
+            "post_click_analytics_int_ext_link_click_web",
+            "posting_track_event_count",
+            "unique_adblock_users",
+            "audio_my_tracker_web",
+            "mini_apps_send_stat_arguments_bridge_events_sdk"
         ]) {
             delete vkParts[key];
         }
