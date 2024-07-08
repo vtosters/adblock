@@ -279,7 +279,7 @@
     }
 
     function removeAway() {
-        const links = document.getElementsByTagName("a");
+        const links = document.querySelectorAll("a[href*='away.php']")
         for (let i = 0; i < links.length; i++) {
             const url = new URL(links[i].href);
             if(url.pathname.endsWith("away.php")) {
