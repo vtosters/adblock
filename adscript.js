@@ -54,13 +54,13 @@
             get: () => vkValue,
             set: (newVk) => {
                 vkValue = newVk;
-                for (const callback of interaction.listeners) {
+                interaction.listeners.forEach(callback => {
                     try {
                         callback(vkValue);
                     } catch (e) {
                         console.error(e);
                     }
-                }
+                });
                 return true;
             },
             configurable: true,
@@ -69,26 +69,21 @@
 
     let inited = false;
     const onAddNewCallback = async (callback) => {
-        if (inited) {
-            // await waitVK();
-        } else {
+        if (!inited) {
             inited = true;
             await hookVK();
         }
-
         callback(window.vk);
     };
 
     const onChangeVK = (callback) => {
         const listener = interaction.addListener(callback);
-
         onAddNewCallback(callback);
-
         return listener;
     };
 
     const createOnChangeVKField = (fieldName) => {
-        const interaction = new InteractionListener();
+        const fieldInteraction = new InteractionListener();
 
         const hookField = (vkValue) => {
             let fieldValue = vkValue[fieldName];
@@ -97,13 +92,13 @@
                 get: () => fieldValue,
                 set: (newValue) => {
                     fieldValue = newValue;
-                    for (const callback of interaction.listeners) {
+                    fieldInteraction.listeners.forEach(callback => {
                         try {
                             callback(fieldValue);
                         } catch (e) {
                             console.error(e);
                         }
-                    }
+                    });
                     return true;
                 },
                 configurable: true,
@@ -131,7 +126,7 @@
         };
 
         const onChangeField = (callback) => {
-            const listener = interaction.addListener(callback);
+            const listener = fieldInteraction.addListener(callback);
             onAddNewCallback(callback);
             return listener;
         };
@@ -144,10 +139,9 @@
     const onChangeErrorMonitoringConfig = createOnChangeVKField("cfg");
 
     const modifyVkPart = (vkParts) => {
-        vkParts.keys()
-            .forEach((key) => {
-                if(isVkPart(key))delete vkParts[key];
-            });
+        Object.keys(vkParts).forEach((key) => {
+            if (isVkPart(key)) delete vkParts[key];
+        });
     };
 
     const modifyAudioAdsConfig = (audioAdsConfig) => {
@@ -164,10 +158,8 @@
     };
 
     const modifyErrorMonitoringConfig = (errorMonitoringConfig) => {
-        Object.defineProperties(errorMonitoringConfig, {
-            'dsn': {
-                value: 'http://127.0.0.1'
-            },
+        Object.defineProperty(errorMonitoringConfig, 'dsn', {
+            value: 'http://127.0.0.1'
         });
     };
 
@@ -218,74 +210,42 @@
     };
 
     function isVkPart(prop) {
-        return (
-            prop === "send_user_info_stats"
-            || prop === "force_send_user_info"
-            || prop === "send_user_info_on_localhost"
-            || prop === "send_navigation_stats_in_spa"
-            || prop === "log_send_user_info_errors"
-            || prop === "web_mytracker_collect_post_stats"
-            || prop === "web_stats_device_id"
-            || prop === "web_stats_reduce_debounce"
-            || prop === "web_stats_send_beacon"
-            || prop === "web_stats_send_on_events_limit"
-            || prop === "web_stats_transport_story_view"
-            || prop === "sentry_js_web_request_timeouts_feature"
-            || prop === "sentry_js_web_request_timeouts_forwarding"
-            || prop === "sentry_js_web_timeouts_forwarding"
-            || prop === "sentry_js_web_verbose"
-            || prop === "sentry_log_network_errors"
-            || prop === "ads_app_form_link_redirect"
-            || prop === "ads_autopromotion_web_geo"
-            || prop === "ads_easy_promote_goods_new_create_api"
-            || prop === "ads_light_methods_protection"
-            || prop === "ads_market_autopromotion_bookmarks_stats"
-            || prop === "ads_use_vk_community_video_portrait_4_5"
-            || prop === "clips_web_my_tracker"
-            || prop === "feed_post_track_code_client_web"
-            || prop === "games_send_track_visitor_activity"
-            || prop === "js_errors_no_write_uncaught_errors"
-            || prop === "tgb_adblock_protection"
-            || prop === "post_adblock_protection_promo"
-            || prop === "eager_error_monitoring"
-            || prop === "mini_apps_performance_close_app_empty_event"
-            || prop === "mini_apps_performance_iframe_errors"
-            || prop === "mini_apps_performance_web"
-            || prop === "mini_apps_send_my_tracker_activity"
-            || prop === "post_click_analytics_int_ext_link_click_web"
-            || prop === "posting_track_event_count"
-            || prop === "unique_adblock_users"
-            || prop === "audio_my_tracker_web"
-            || prop === "mini_apps_send_stat_arguments_bridge_events_sdk"
-            || prop === "ajax_request_parse_html_error"
-            || prop === "js_errors_no_write_uncaught_errors"
-            || prop === "tns_track_sections"
-            || prop === "tns_track_hosts"
-            || prop === "geminus_counter"
-            || prop === "ads_pixels_track_new_events_web_mvk"
-            || prop === "web_navigation_handlers"
-            || prop === "measure_module_navigation_stats"
-            || prop === "group_join_track_event_count"
-            || prop === "feed_content_events_open_post_event_web"
-            || prop === "feed_posts_duration_stats_fix"
-            || prop === "collect_unsupported_user_info_stats"
-            || prop === "log_fetch_requests"
-            || prop === "log_fetch_requests_get"
-            || prop === "post_adguard_protection_promo"
-            || prop === "extended_ajax_logging"
-            || prop === "messenger_mediascope_stats_collect"
-            || prop === "audio_player_stats_web"
-        );
+        const vkPartsList = [
+            "send_user_info_stats", "force_send_user_info", "send_user_info_on_localhost",
+            "send_navigation_stats_in_spa", "log_send_user_info_errors", "web_mytracker_collect_post_stats",
+            "web_stats_device_id", "web_stats_reduce_debounce", "web_stats_send_beacon",
+            "web_stats_send_on_events_limit", "web_stats_transport_story_view", "sentry_js_web_request_timeouts_feature",
+            "sentry_js_web_request_timeouts_forwarding", "sentry_js_web_timeouts_forwarding", "sentry_js_web_verbose",
+            "sentry_log_network_errors", "ads_app_form_link_redirect", "ads_autopromotion_web_geo",
+            "ads_easy_promote_goods_new_create_api", "ads_light_methods_protection", "ads_market_autopromotion_bookmarks_stats",
+            "ads_use_vk_community_video_portrait_4_5", "clips_web_my_tracker", "feed_post_track_code_client_web",
+            "games_send_track_visitor_activity", "js_errors_no_write_uncaught_errors", "tgb_adblock_protection",
+            "post_adblock_protection_promo", "eager_error_monitoring", "mini_apps_performance_close_app_empty_event",
+            "mini_apps_performance_iframe_errors", "mini_apps_performance_web", "mini_apps_send_my_tracker_activity",
+            "post_click_analytics_int_ext_link_click_web", "posting_track_event_count", "unique_adblock_users",
+            "audio_my_tracker_web", "mini_apps_send_stat_arguments_bridge_events_sdk", "ajax_request_parse_html_error",
+            "js_errors_no_write_uncaught_errors", "tns_track_sections", "tns_track_hosts", "geminus_counter",
+            "ads_pixels_track_new_events_web_mvk", "web_navigation_handlers", "measure_module_navigation_stats",
+            "group_join_track_event_count", "feed_content_events_open_post_event_web", "feed_posts_duration_stats_fix",
+            "collect_unsupported_user_info_stats", "log_fetch_requests", "log_fetch_requests_get",
+            "post_adguard_protection_promo", "extended_ajax_logging", "messenger_mediascope_stats_collect",
+            "audio_player_stats_web"
+        ];
+        return vkPartsList.includes(prop);
     }
 
     function removeAway() {
-        const links = document.querySelectorAll("a[href*='away.php']")
-        for (let i = 0; i < links.length; i++) {
-            const url = new URL(links[i].href);
-            if(url.pathname.endsWith("away.php")) {
-                links[i].href = url.searchParams.get("to");
+        const links = document.querySelectorAll("a[href*='away.php']");
+
+        links.forEach(link => {
+            const url = new URL(link.href);
+            if (url.pathname.endsWith("away.php")) {
+                const newHref = url.searchParams.get("to");
+                if (newHref) {
+                    link.href = newHref;
+                }
             }
-        }
+        });
     }
 
     function removeElementById(id) {
@@ -305,9 +265,8 @@
     }
 
     function clearFunctions(obj) {
-        Object.getOwnPropertyNames(obj)
-            .filter((prop) => typeof obj[prop] === 'function')
-            .forEach((prop) => {
+        Object.keys(obj).forEach((prop) => {
+            if (typeof obj[prop] === 'function') {
                 try {
                     Object.defineProperty(obj, prop, {
                         value: function () { }
@@ -315,7 +274,8 @@
                 } catch (error) {
                     console.error(`Failed to clear function: ${prop}`, error);
                 }
-            })
+            }
+        });
     }
 
     if (window.vk) {
@@ -344,5 +304,5 @@
         if (window.AdsLight) {
             clearFunctions(window.AdsLight);
         }
-    }, window.navigator?.hardwareConcurrency ? (30_000 / navigator.hardwareConcurrency) : 30_000);
+    }, window.navigator?.hardwareConcurrency ? (30000 / navigator.hardwareConcurrency) : 30000);
 })();
