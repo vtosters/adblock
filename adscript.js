@@ -3,7 +3,7 @@
 // @name:ru      Правки рекламы ВКонтакте
 // @name:uk      Правки реклами ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      1.7
+// @version      1.8
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @description:uk Цей скрипт вносить кілька виправлень у фільтр adblock у VK, щоб прискорити завантаження сайту і підвищити загальну продуктивність.
@@ -11,7 +11,6 @@
 // @match        https://vk.com/*
 // @match        https://vk.ru/*
 // @grant        none
-// @run-at       document-start
 // @downloadURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.user.js
 // @updateURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.meta.js
 // ==/UserScript==
