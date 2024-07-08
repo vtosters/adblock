@@ -3,7 +3,7 @@
 // @name:ru      Правки рекламы ВКонтакте
 // @name:uk      Правки реклами ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      1.9
+// @version      2.0
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @description:uk Цей скрипт вносить кілька виправлень у фільтр adblock у VK, щоб прискорити завантаження сайту і підвищити загальну продуктивність.
@@ -180,32 +180,24 @@
     };
 
     const modifyWindowProperties = () => {
-        Object.defineProperties(window, {
-            noAds: {
-                value: true
-            },
-            noAdsAtAll: {
-                value: true
-            },
-            no_left_ads: {
-                value: true
-            },
-            no_ads: {
-                value: true
-            },
-            isNoAdsForce: {
-                value: true
-            },
-            hide_ad: {
-                value: true
-            },
-            ya_direct: {
-                value: false
-            },
-            yaDirectAdActive: {
-                value: false
+        const properties = {
+            noAds: true,
+            noAdsAtAll: true,
+            no_left_ads: true,
+            no_ads: true,
+            isNoAdsForce: true,
+            hide_ad: true,
+            ya_direct: false,
+            yaDirectAdActive: false
+        };
+
+        for (const prop in properties) {
+            if (!(prop in window)) {
+                Object.defineProperty(window, prop, {
+                    value: properties[prop]
+                });
             }
-        });
+        }
     };
 
     function isVkPart(prop) {
