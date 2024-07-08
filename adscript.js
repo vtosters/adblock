@@ -282,7 +282,7 @@
         const links = document.getElementsByTagName("a");
         for (let i = 0; i < links.length; i++) {
             const url = new URL(links[i].href);
-            if(url.pathname.endWith("away.php")) {
+            if(url.pathname.endsWith("away.php")) {
                 links[i].href = url.searchParams.get("to");
             }
         }
