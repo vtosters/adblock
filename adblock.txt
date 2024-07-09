@@ -279,3 +279,11 @@ vk.*##body:style(position:static!important)
 
 ! Монетизация в группах
 vk.*##.group_settings_advice
+
+! Панель историй
+vk.com##.StoryFeedBlockWrapper
+m.vk.com##._preventMenuOpen.StoriesFeedBlock
+
+! Возможно, вам будет интересно
+m.vk.com##._preventMenuOpen.StoriesFeedBlock
+m.vk.com##.vkuiInternalGroupCard.Group-module__groupModeCard--CUTB8.Group-module__groupPaddingM--xZXgw.Group-module__group--CCYwC.vkuiGroup--padding-m.vkuiInternalGroup--mode-card.vkuiGroup--mode-card
