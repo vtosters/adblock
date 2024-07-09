@@ -76,13 +76,13 @@ vk.*#$##ads_left { position: absolute; top: -2500px; }
 
 ! Костыли
 @@://vk.*/ads$document,~third-party
-@@://vk.*/exchange$document,important
+@@://vk.*/exchange$document
 @@||oauth.vk.ru$document
-@@||login.vk.*/?act=openapi$domain=220vk.ru,stealth
-@@||vk.*/vkpay$stealth
+@@||login.vk.*/?act=openapi$domain=220vk.ru
+@@||vk.*/vkpay
 @@||oauth.vk.*/authorize?
-@@api_url=http://api.vk.*/api.php$jsinject
-@@api_url=https://api.vk.*/api.php$jsinject
+@@api_url=http://api.vk.*/api.php
+@@api_url=https://api.vk.*/api.php$
 
 ! Отправка логов и ошибок
 ||vk.*/errors.php^
@@ -231,7 +231,6 @@ vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.block_aliexpress-recommenda
 vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="block_aliexpress-recommendations-carousel"]']
 
 ! Фикс удаления стилей адг
-vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 vk.*#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
 vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 
