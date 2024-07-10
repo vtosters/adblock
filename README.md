@@ -1,10 +1,10 @@
-# Adblock решения для ВКонтакте
+<h2>Custom ad filter</h2>
 
-**Блокировка аналитики, метрики, рекламы и рекомендаций для веб-версий vk.com/vk.ru и m.vk.com/m.vk.ru**
+Кастомные списки для блокировки рекламы ВКонтакте.
 
-Рекомендуется использовать Adguard для полноценной работы фильтра, а также Tampermonkey для скриптов, обеспечивающих совместимость с фильтром.
+Рекомендуется использовать uBlock Origin development build для полноценной работы фильтра, а также Tampermonkey для скриптов, обеспечивающих совместимость с фильтром.
 
-Всегда последнюю версию фильтра можно найти [здесь](https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adblock.txt), а скрипта — [здесь](https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adscript.js).
+<b>Добавить список в</b> [uBlock](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adblock?_=rawlist&title=VK_Adblock)
 
 ## Прочая информация
 
