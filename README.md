@@ -4,10 +4,8 @@
 
 Рекомендуется использовать Adguard для полноценной работы фильтра, а также Tampermonkey для скриптов, обеспечивающих совместимость с фильтром.
 
-Всегда последнюю версию фильтра можно найти [здесь](https://vtosters.app/adblock), а скрипта — [здесь](https://vtosters.app/adscript).
+Всегда последнюю версию фильтра можно найти [здесь](https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adblock.txt), а скрипта — [здесь](https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adscript.js).
 
 ## Прочая информация
 
-О найденных багах или проблемах с блокировкой сообщайте в [issues](https://github.com/vtosters/adblock/issues).
-
-Большое спасибо разработчикам из [VK Next](https://vknext.net) и, конечно же, [Adguard](https://adguard.com) за лучший адблок, а также Tampermonkey за удобную платформу для скриптов.
+О найденных багах или проблемах с блокировкой сообщайте в [issues](https://github.com/LordArrin/vk_adblock/issues).
