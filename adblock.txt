@@ -1,10 +1,13 @@
-[Adblock Plus 2.0]
-! Version: 3.13
+!
+! Version: 3.14
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 6 Jule 2024 13:39
+! Last modified: 10 Jule 2024 6:58
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
-
+! Expires: 24 hours (update frequency)
+! Issues: https://github.com/vtosters/adblock/issues 
+! Syntax: uBlock Origin 
+!
 ! Блокировка баннеров слева и частично в ленте
 vk.*##.ads300-thumb
 vk.*##.ads600x200
@@ -76,13 +79,13 @@ vk.*#$##ads_left { position: absolute; top: -2500px; }
 
 ! Костыли
 @@://vk.*/ads$document,~third-party
-@@://vk.*/exchange$document,important
+@@://vk.*/exchange$document
 @@||oauth.vk.ru$document
-@@||login.vk.*/?act=openapi$domain=220vk.ru,stealth
-@@||vk.*/vkpay$stealth
+@@||login.vk.*/?act=openapi$domain=220vk.ru
+@@||vk.*/vkpay
 @@||oauth.vk.*/authorize?
-@@api_url=http://api.vk.*/api.php$jsinject
-@@api_url=https://api.vk.*/api.php$jsinject
+@@api_url=http://api.vk.*/api.php
+@@api_url=https://api.vk.*/api.php
 
 ! Отправка логов и ошибок
 ||vk.*/errors.php^
@@ -231,7 +234,6 @@ vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.block_aliexpress-recommenda
 vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="block_aliexpress-recommendations-carousel"]']
 
 ! Фикс удаления стилей адг
-vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 vk.*#%#//scriptlet('set-constant', 'window.Unauthorized2', 'undefined')
 vk.*#%#//scriptlet('set-constant', 'window.PageBottomBanners.initUnauthBanner', 'noopFunc')
 
