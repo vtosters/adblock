@@ -6,6 +6,9 @@
 
 Всегда последнюю версию фильтра можно найти [здесь](https://vtosters.app/adblock), а скрипта — [здесь](https://vtosters.app/adscript).
 
+[Установить фильтр](https://subscribe.adblockplus.org/?location=https://vtosters.app/adblock&title=VK_Adblock)
+[Установить скрипт](https://greasyfork.org/ru/scripts/499839-vk-ads-fixes)
+
 ## Прочая информация
 
 О найденных багах или проблемах с блокировкой сообщайте в [issues](https://github.com/vtosters/adblock/issues).
