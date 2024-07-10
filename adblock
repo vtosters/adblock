@@ -1,10 +1,12 @@
-[Adblock Plus 2.0]
-! Version: 3.13
-! Title: Расширенный фильтр для ВКонтакте
-! Homepage: https://vtosters.app
-! Last modified: 6 Jule 2024 13:39
-! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
-
+!
+! Title: VK Adblock
+! Description: Custom filter list for using with the ad blocker
+! Homepage: https://github.com/LordArrin/vk_adblock
+! License: https://github.com/LordArrin/vk_adblock/blob/main/LICENSE
+! Expires: 24 hours (update frequency)
+! Issues: https://github.com/LordArrin/vk_adblock/issues
+! Syntax: uBlock Origin
+!
 ! Блокировка баннеров слева и частично в ленте
 vk.*##.ads300-thumb
 vk.*##.ads600x200
