@@ -4,8 +4,10 @@
 
 Рекомендуется использовать uBlock Origin development build для полноценной работы фильтра, а также Tampermonkey для скриптов, обеспечивающих совместимость с фильтром.
 
-<b>Добавить список в</b> [uBlock](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/LordArrin/vk_adblock/main/adblock?_=rawlist&title=VK_Adblock)
+<b>Добавить список в</b> [uBlock](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/LordArrin/VK_AdFck/main/adblock?_=rawlist&title=VK_AdFck)
 
 ## Прочая информация
 
-О найденных багах или проблемах с блокировкой сообщайте в [issues](https://github.com/LordArrin/vk_adblock/issues).
+О найденных багах или проблемах с блокировкой сообщайте в [issues](https://github.com/LordArrin/VK_AdFck/issues).
+
+Основано на работе разработчиков [VTosters](https://github.com/vtosters/adblock)
