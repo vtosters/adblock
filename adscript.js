@@ -3,7 +3,7 @@
 // @name:ru      Правки рекламы ВКонтакте
 // @name:uk      Правки реклами ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      2.0
+// @version      2.1
 // @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
 // @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
 // @description:uk Цей скрипт вносить кілька виправлень у фільтр adblock у VK, щоб прискорити завантаження сайту і підвищити загальну продуктивність.
@@ -17,6 +17,13 @@
 
 (function () {
     'use strict';
+
+    class FilterPaneElement extends HTMLElement {
+        constructor() {
+            super();
+            this.injected = false;
+        }
+    }
 
     class InteractionListener {
         constructor() {
@@ -269,6 +276,58 @@
         });
     }
 
+    const enableUnsafeCheckbox = (filterPane) => {
+        if (filterPane.injected) return;
+
+        filterPane.injected = true;
+
+        const hqCheckbox = filterPane.querySelector('#video_fltr_hd');
+        if (!hqCheckbox) return;
+
+        const unsafeCheckbox = hqCheckbox.cloneNode(true);
+        unsafeCheckbox.id = 'video_fltr_notsafe';
+
+        const localeString = window.cur.lang['video_filter_no_safe'];
+        unsafeCheckbox.lastChild.nodeValue = localeString;
+
+        hqCheckbox.insertAdjacentElement('afterend', unsafeCheckbox);
+
+        window.cur.videoFilter_notsafe = document.getElementById('video_fltr_notsafe');
+        window.removeEvent(window.cur.videoFilter_notsafe, 'click');
+        window.addEvent(window.cur.videoFilter_notsafe, 'click', window.Video._onFiltersChanged);
+        window.data(window.cur.videoFilter_notsafe, 'title', localeString);
+
+        window.vk.pe['search_video_adult_web'] = true;
+
+        const loc = window.Video.getLoc();
+        if (loc.q) {
+            window.Video._prepareSearchFilters(loc);
+            window.cur.searchText = loc.q;
+            window.Video.inputVal(window.cur.searchInputEl, window.cur.searchText);
+            window.Video.doSearch(loc.q);
+        }
+
+        if (window.Video.getLoc().notsafe) {
+            unsafeCheckbox.click();
+        }
+    };
+
+    const initUnsafeCheckboxAndButton = () => {
+        const filterPane = document.querySelector('.video_search_filters_wrap');
+        if (filterPane) {
+            enableUnsafeCheckbox(filterPane);
+        }
+    };
+
+    const onVkVideoPageLoaded = (callback) => {
+        let intervalId = setInterval(() => {
+            if (document.querySelector('.video_search_filters_wrap')) {
+                clearInterval(intervalId);
+                callback();
+            }
+        }, 500);
+    };
+
     if (window.AdsLight) {
         clearFunctions(window.AdsLight);
     }
@@ -280,6 +339,7 @@
         modifyAdParams(window.vk);
         modifyWindowProperties();
 
+        onVkVideoPageLoaded(initUnsafeCheckboxAndButton);
         onChangeVKPart(modifyVkPart);
         onChangeAudioAdsConfig(modifyAudioAdsConfig);
         onChangeErrorMonitoringConfig(modifyErrorMonitoringConfig);
@@ -295,5 +355,6 @@
         if (window.AdsLight) {
             clearFunctions(window.AdsLight);
         }
+        onVkVideoPageLoaded(initUnsafeCheckboxAndButton);
     }, window.navigator?.hardwareConcurrency ? (30000 / navigator.hardwareConcurrency) : 30000);
 })();
