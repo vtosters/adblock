@@ -1,8 +1,8 @@
 !
-! Version: 3.15
+! Version: 3.16
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 13 October 2024 17:37
+! Last modified: 13 October 2024 18:15
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 ! Expires: 24 hours (update frequency)
 ! Issues: https://github.com/vtosters/adblock/issues 
@@ -114,6 +114,10 @@ vk.*###page_wall_posts > div[id^="post-"]:has(a[onclick*="adsite_"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(a[onclick*="adsite_"])
 vk.*###page_wall_posts > div[id^="post-"]:has(a[data-mt-video-hls*="mradx.net"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(a[data-mt-video-hls*="mradx.net"])
+vk.*###page_wall_posts > div[id^="post-"]:has(span.PostHeaderSubtitle__item[onmouseover*="showTooltip"]):has(span[aria-hidden="false"])
+vk.*#?##feed_rows > div[class="feed_row "]:has(span.PostHeaderSubtitle__item[onmouseover*="showTooltip"]):has(span[aria-hidden="false"])
+vk.*###page_wall_posts > div[id^="post-"]:has(img[src^="https://r0.mradx.net"])
+vk.*#?##feed_rows > div[class="feed_row "]:has(img[src^="https://r0.mradx.net"])
 
 ! Реклама групп с сурса
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
@@ -169,6 +173,8 @@ vk.*##.NewMiniAppsRightBlock__root
 vk.*##.RecommendedNarrativesBlock
 vk.*##.RecommendedNarrativesBlockBase
 m.vk.*##.feedAssistancePromoButtonInstallApp
+vk.*###feed_mini_apps_recomm
+vk.*##.MarketItemsPortlet
 
 ! Рекомендации групп и друзей в ленте
 vk.*###groups_filters_wrap > .page_block
