@@ -114,8 +114,6 @@ vk.*###page_wall_posts > div[id^="post-"]:has(a[onclick*="adsite_"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(a[onclick*="adsite_"])
 vk.*###page_wall_posts > div[id^="post-"]:has(a[data-mt-video-hls*="mradx.net"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(a[data-mt-video-hls*="mradx.net"])
-vk.*###page_wall_posts > div[id^="post-"]:has(span.PostHeaderSubtitle__item[onmouseover*="showTooltip"]):has(span[aria-hidden="false"])
-vk.*#?##feed_rows > div[class="feed_row "]:has(span.PostHeaderSubtitle__item[onmouseover*="showTooltip"]):has(span[aria-hidden="false"])
 vk.*###page_wall_posts > div[id^="post-"]:has(img[src^="https://r0.mradx.net"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(img[src^="https://r0.mradx.net"])
 vk.*###page_wall_posts > div[id^="post-"].post_marked_as_ads
