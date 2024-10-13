@@ -1,8 +1,8 @@
 !
-! Version: 3.17
+! Version: 3.18
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 13 October 2024 18:22
+! Last modified: 13 October 2024 18:41
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 ! Expires: 24 hours (update frequency)
 ! Issues: https://github.com/vtosters/adblock/issues 
@@ -118,6 +118,8 @@ vk.*###page_wall_posts > div[id^="post-"]:has(span.PostHeaderSubtitle__item[onmo
 vk.*#?##feed_rows > div[class="feed_row "]:has(span.PostHeaderSubtitle__item[onmouseover*="showTooltip"]):has(span[aria-hidden="false"])
 vk.*###page_wall_posts > div[id^="post-"]:has(img[src^="https://r0.mradx.net"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(img[src^="https://r0.mradx.net"])
+vk.*###page_wall_posts > div[id^="post-"].post_marked_as_ads
+vk.*#?##feed_rows > div[class="feed_row "].post_marked_as_ads
 
 ! Реклама групп с сурса
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
