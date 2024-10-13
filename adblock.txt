@@ -1,8 +1,8 @@
 !
-! Version: 3.18
+! Version: 3.19
 ! Title: Расширенный фильтр для ВКонтакте
 ! Homepage: https://vtosters.app
-! Last modified: 13 October 2024 18:41
+! Last modified: 13 October 2024 18:46
 ! Description: Фильтр рекламы и слежки на vk.com/vk.ru. Фильтр рассчитан и для m.vk.com/m.vk.ru
 ! Expires: 24 hours (update frequency)
 ! Issues: https://github.com/vtosters/adblock/issues 
@@ -118,18 +118,6 @@ vk.*###page_wall_posts > div[id^="post-"]:has(img[src^="https://r0.mradx.net"])
 vk.*#?##feed_rows > div[class="feed_row "]:has(img[src^="https://r0.mradx.net"])
 vk.*###page_wall_posts > div[id^="post-"].post_marked_as_ads
 vk.*#?##feed_rows > div[class="feed_row "].post_marked_as_ads
-
-! Реклама групп с сурса
-vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.Post__copyright)
-vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"][-ext-has='div[class="Post__copyright"]']
-vk.*###page_wall_posts > div[id^="post-"][-ext-has='> div._post_content > div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.Post__copyright']
-vk.*###page_wall_posts > div[id^="post-"][-ext-has='div._post_content > div.post_content > div.post_info > div.wall_text > div.Post__copyright']
-vk.*##.wall_wrap div[id^="post-"][-ext-has='div.post_content > div.post_info > div.wall_text > div.wall_post_cont > div.Post__copyright']
-vk.*###feed_rows > div[class="feed_row "] > div[class^="feed_repost-"]:has(div[class="Post__copyright"])
-vk.*##div[class^="feed_row "] > div[id^="feed_repost-"]:has(.Post__copyright)
-vk.*##.Post__copyright
-vk.*###page_wall_posts > div.Post--copyright
-vk.*###feed_rows > div[class="feed_row "] > div.Post--copyright
 
 ! Реклама интересных авторов
 vk.*#?##page_wall_posts > div[id^="post-"]:-abp-has(.wall_authors_rec)
@@ -280,7 +268,6 @@ vk.*##.ReplyBoxDonut
 ! m.vk поддержка
 m.vk.*#?#.wall_item:has(> div.wi_body > div.ads_mark)
 m.vk.*##.wall_item[data-ad-view]
-m.vk.*#?#.wall_item:has(> div.wi_body > a.copyright_label)
 m.vk.*##[class^="_ads_block_data_w"]
 m.vk.*##.wall_item.feedAssistance.GroupsRecommendedSlider
 m.vk.*##.wall_item.feedAssistance.friendsRecommendedSliderWrap
