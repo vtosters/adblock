@@ -1,214 +1,26 @@
 // ==UserScript==
-// @name         VK Ads Fixes
+// @name      VK Ads Fixes
 // @name:ru      Правки рекламы ВКонтакте
 // @name:uk      Правки реклами ВКонтакте
 // @namespace    https://vtosters.app/
-// @version      2.1
-// @description  This script applies several fixes to the adblock filter on VK, aiming to speed up site loading and enhance overall performance.
-// @description:ru Этот скрипт вносит несколько исправлений в фильтр adblock в VK, чтобы ускорить загрузку сайта и повысить общую производительность.
-// @description:uk Цей скрипт вносить кілька виправлень у фільтр adblock у VK, щоб прискорити завантаження сайту і підвищити загальну продуктивність.
-// @author       gdlbo
+// @version      2.2
+// @description Script for blocking ads in VK (VKontakte), bypassing blocking detection, etc.
+// @description:ru Скрипт для блокировки рекламы в VK (ВКонтакте), обхода обнаружения блокировки и т.д.
+// @description:uk Скрипт для блокування реклами у VK (ВКонтакті), обходу виявлення блокування тощо.
+// @author       gdlbo, Vologhat
 // @match        https://vk.com/*
 // @match        https://vk.ru/*
 // @grant        none
-// @downloadURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.user.js
-// @updateURL https://update.greasyfork.org/scripts/499839/VK%20Ads%20Fixes.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/518509/VK%20Ads%20Fixes.user.js
+// @updateURL https://update.greasyfork.org/scripts/518509/VK%20Ads%20Fixes.meta.js
 // ==/UserScript==
 
-(function () {
-    'use strict';
+(() => {
+    "use strict"
 
-    class FilterPaneElement extends HTMLElement {
-        constructor() {
-            super();
-            this.injected = false;
-        }
-    }
-
-    class InteractionListener {
-        constructor() {
-            this._listeners = [];
-        }
-
-        addListener(callback) {
-            if (!this._listeners.includes(callback)) {
-                this._listeners.push(callback);
-            }
-            return {
-                remove: () => this.removeListener(callback),
-            };
-        }
-
-        removeListener(callback) {
-            const index = this._listeners.indexOf(callback);
-            if (index !== -1) {
-                this._listeners.splice(index, 1);
-            }
-        }
-
-        get listeners() {
-            return [...this._listeners];
-        }
-    }
-
-    const interaction = new InteractionListener();
-
-    const hookVK = async () => {
-        let vkValue = window.vk;
-
-        Object.defineProperty(window, "vk", {
-            get: () => vkValue,
-            set: (newVk) => {
-                vkValue = newVk;
-                interaction.listeners.forEach(callback => {
-                    try {
-                        callback(vkValue);
-                    } catch (e) {
-                        console.error(e);
-                    }
-                });
-                return true;
-            },
-            configurable: true,
-        });
-    };
-
-    let inited = false;
-    const onAddNewCallback = async (callback) => {
-        if (!inited) {
-            inited = true;
-            await hookVK();
-        }
-        callback(window.vk);
-    };
-
-    const onChangeVK = (callback) => {
-        const listener = interaction.addListener(callback);
-        onAddNewCallback(callback);
-        return listener;
-    };
-
-    const createOnChangeVKField = (fieldName) => {
-        const fieldInteraction = new InteractionListener();
-
-        const hookField = (vkValue) => {
-            let fieldValue = vkValue[fieldName];
-
-            Object.defineProperty(vkValue, fieldName, {
-                get: () => fieldValue,
-                set: (newValue) => {
-                    fieldValue = newValue;
-                    fieldInteraction.listeners.forEach(callback => {
-                        try {
-                            callback(fieldValue);
-                        } catch (e) {
-                            console.error(e);
-                        }
-                    });
-                    return true;
-                },
-                configurable: true,
-                enumerable: true,
-            });
-        };
-
-        const hookFieldWithVK = async () => {
-            let vkValue = window.vk;
-
-            hookField(vkValue);
-
-            onChangeVK((newVk) => {
-                hookField(newVk);
-            });
-        };
-
-        let inited = false;
-        const onAddNewCallback = async (callback) => {
-            if (!inited) {
-                inited = true;
-                await hookFieldWithVK();
-            }
-            callback(window.vk[fieldName]);
-        };
-
-        const onChangeField = (callback) => {
-            const listener = fieldInteraction.addListener(callback);
-            onAddNewCallback(callback);
-            return listener;
-        };
-
-        return onChangeField;
-    };
-
-    const onChangeVKPart = createOnChangeVKField("pe");
-    const onChangeAudioAdsConfig = createOnChangeVKField("audioAdsConfig");
-    const onChangeErrorMonitoringConfig = createOnChangeVKField("cfg");
-
-    const modifyVkPart = (vkParts) => {
-        Object.keys(vkParts).forEach((key) => {
-            if (isVkPart(key)) delete vkParts[key];
-        });
-    };
-
-    const modifyAudioAdsConfig = (audioAdsConfig) => {
-        if (audioAdsConfig) {
-            Object.defineProperties(audioAdsConfig, {
-                'enabled': {
-                    value: false
-                },
-                'day_limit_reached': {
-                    value: false
-                },
-            });
-        }
-    };
-
-    const modifyErrorMonitoringConfig = (errorMonitoringConfig) => {
-        Object.defineProperty(errorMonitoringConfig, 'dsn', {
-            value: 'http://127.0.0.1'
-        });
-    };
-
-    const modifyAdParams = (adParams) => {
-        Object.defineProperties(adParams, {
-            'ads_can_show': {
-                value: 0
-            },
-            'leftads': {
-                value: ''
-            },
-            'wsTransport': {
-                value: 'http://127.0.0.1'
-            },
-            'ads_rotate_interval': {
-                value: Number.MAX_SAFE_INTEGER
-            }
-        });
-    };
-
-    const modifyWindowProperties = () => {
-        const properties = {
-            noAds: true,
-            noAdsAtAll: true,
-            no_left_ads: true,
-            no_ads: true,
-            isNoAdsForce: true,
-            hide_ad: true,
-            ya_direct: false,
-            yaDirectAdActive: false
-        };
-
-        for (const prop in properties) {
-            if (!(prop in window)) {
-                Object.defineProperty(window, prop, {
-                    value: properties[prop]
-                });
-            }
-        }
-    };
-
-    function isVkPart(prop) {
-        const vkPartsList = [
+    class VkPeProperties
+    {
+        static #KEYS=[
             "send_user_info_stats", "force_send_user_info", "send_user_info_on_localhost",
             "send_navigation_stats_in_spa", "log_send_user_info_errors", "web_mytracker_collect_post_stats",
             "web_stats_device_id", "web_stats_reduce_debounce", "web_stats_send_beacon",
@@ -229,132 +41,200 @@
             "post_adguard_protection_promo", "extended_ajax_logging", "messenger_mediascope_stats_collect",
             "audio_player_stats_web"
         ];
-        return vkPartsList.includes(prop);
+
+        static isValidProperty(key)
+        { return key in this.#KEYS }
     }
 
-    function removeAway() {
-        const links = document.querySelectorAll("a[href*='away.php']");
+    //hook vk
+    let actualVk=window.vk
+    const vkHooks=new Set();
+    Object.defineProperty(window,"vk", {
+        get:() => actualVk,
+        set:(value) => {
+            actualVk=value
+            if(actualVk)vkHooks.forEach( hook => hook(actualVk))
+            return true
+        },
+        configurable:true
+    })
 
-        links.forEach(link => {
-            const url = new URL(link.href);
-            if (url.pathname.endsWith("away.php")) {
-                const newHref = url.searchParams.get("to");
-                if (newHref) {
-                    link.href = newHref;
-                }
+    //hook vk properties
+    const createAndPerformVkPropHook=(key,hookfn) => {
+        //hook when vk redefines
+        vkHooks.add(vk => {
+            if(vk&&vk[key])hookfn(vk[key])
+            
+            //hook when property redefines
+            let actualProp=vk[key]
+            Object.defineProperty(vk,key, {
+                get:() => actualProp,
+                set:(value) => {
+                    actualProp=value
+                    hookfn(actualProp)
+                    return true
+                },
+                configurable:true,
+                enumerable:true
+            })
+        })
+    }
+
+    //remove properties from vk.pe hook
+    createAndPerformVkPropHook("pe",pe => {
+        console.log("patch pe")
+        
+        Object.keys(pe)
+            .filter(key => VkPeProperties.isValidProperty(key))
+            .forEach(key => delete window.vk.pe[key])
+    })
+
+    //patch vk.AudioAdsConfig hook
+    createAndPerformVkPropHook("audioAdsConfig",audioAdsConfig => {
+        console.log("patch audioAdsConfig")
+        
+        Object.defineProperties(audioAdsConfig, {
+            enabled: {
+                value:false
+            },
+            day_limit_reached: {
+                value:false
+            },
+            sections: {
+                value:[]
             }
-        });
-    }
+        })
+    })
 
-    function removeElementById(id) {
-        const element = document.getElementById(id);
-        if (element) {
-            console.log(`Removing element with id: ${id}`);
-            element.remove();
-        }
-    }
+    //disable error monitor DSN hook
+    createAndPerformVkPropHook("cfg",cfg => {
+        console.log("disable error monitoring DSN")
+        
+        Object.defineProperty(cfg.error_monitoring_config,"dsn", {
+            value:"http://127.0.0.1"
+        })
+    })
 
-    function removeBlocks(blockClass) {
-        const blocks = document.querySelectorAll(`div.${blockClass}`);
-        blocks.forEach(block => {
-            console.log(`Removing block with id: ${block.id}`);
-            block.remove();
-        });
-    }
-
-    function clearFunctions(obj) {
-        Object.keys(obj).forEach((prop) => {
-            if (typeof obj[prop] === 'function') {
-                try {
-                    Object.defineProperty(obj, prop, {
-                        value: function () { }
-                    });
-                } catch (error) {
-                    console.error(`Failed to clear function: ${prop}`, error);
-                }
+    //patch vk.adParams hook
+    createAndPerformVkPropHook("adParams",adParams => {
+        console.log("patch adParams")
+  
+        Object.defineProperties(adParams, {
+            ads_can_show: {
+                value:0
+            },
+            leftads: {
+                value:""
+            },
+            wsTransport: {
+                value:"http://127.0.0.1"
+            },
+            ads_rotate_interval: {
+                vallue:Number.MAX_SAFE_INTEGER
             }
-        });
-    }
+        })
+    })
 
-    const enableUnsafeCheckbox = (filterPane) => {
-        if (filterPane.injected) return;
-
-        filterPane.injected = true;
-
-        const hqCheckbox = filterPane.querySelector('#video_fltr_hd');
-        if (!hqCheckbox) return;
-
-        const unsafeCheckbox = hqCheckbox.cloneNode(true);
-        unsafeCheckbox.id = 'video_fltr_notsafe';
-
-        const localeString = window.cur.lang['video_filter_no_safe'];
-        unsafeCheckbox.lastChild.nodeValue = localeString;
-
-        hqCheckbox.insertAdjacentElement('afterend', unsafeCheckbox);
-
-        window.cur.videoFilter_notsafe = document.getElementById('video_fltr_notsafe');
-        window.removeEvent(window.cur.videoFilter_notsafe, 'click');
-        window.addEvent(window.cur.videoFilter_notsafe, 'click', window.Video._onFiltersChanged);
-        window.data(window.cur.videoFilter_notsafe, 'title', localeString);
-
-        window.vk.pe['search_video_adult_web'] = true;
-
-        const loc = window.Video.getLoc();
-        if (loc.q) {
-            window.Video._prepareSearchFilters(loc);
-            window.cur.searchText = loc.q;
-            window.Video.inputVal(window.cur.searchInputEl, window.cur.searchText);
-            window.Video.doSearch(loc.q);
-        }
-
-        if (window.Video.getLoc().notsafe) {
-            unsafeCheckbox.click();
-        }
-    };
-
-    const initUnsafeCheckboxAndButton = () => {
-        const filterPane = document.querySelector('.video_search_filters_wrap');
-        if (filterPane) {
-            enableUnsafeCheckbox(filterPane);
-        }
-    };
-
-    const onVkVideoPageLoaded = (callback) => {
-        let intervalId = setInterval(() => {
-            if (document.querySelector('.video_search_filters_wrap')) {
-                clearInterval(intervalId);
-                callback();
-            }
-        }, 500);
-    };
-
-    if (window.AdsLight) {
-        clearFunctions(window.AdsLight);
-    }
-
-    if (window.vk) {
-        modifyVkPart(window.vk.pe);
-        modifyAudioAdsConfig(window.vk.audioAdsConfig);
-        modifyErrorMonitoringConfig(window.vk.cfg.error_monitoring_config);
-        modifyAdParams(window.vk);
-        modifyWindowProperties();
-
-        onVkVideoPageLoaded(initUnsafeCheckboxAndButton);
-        onChangeVKPart(modifyVkPart);
-        onChangeAudioAdsConfig(modifyAudioAdsConfig);
-        onChangeErrorMonitoringConfig(modifyErrorMonitoringConfig);
-
-        window.__adsSet = function () { };
-        window.__adsUpdate = function () { };
-    }
+    //trigger vk and properties hooks
+    window.vk=window.vk
 
     setInterval(() => {
-        removeAway();
-        removeBlocks('_ads_block_data_w');
-        removeElementById('ads_left');
-        if (window.AdsLight) {
-            clearFunctions(window.AdsLight);
+        //replace "away.php" url to the redirect url
+        document.querySelectorAll("a[href*='away.php']")
+            .forEach(a => {
+                const url=URL.parse(a.href)
+                if(!url.pathname.endsWith("away.php"))return
+                //find a search parameter with valid redirect url
+                url.searchParams.forEach((value) => {
+                    if(URL.canParse(value))
+                    {
+                        a.href=value
+                        return
+                    }
+                })
+            })
+
+        //remove _ads_block_data_w blocks
+        document.querySelectorAll("div._ads_block_data_w")
+            .forEach(div => {
+                console.log(`Remove block with id ${div.id}]`)
+                div.remove()
+            })
+
+        //remove ads_left block
+        const adsLeft=document.getElementById("ads_left")
+        if(adsLeft)
+        {
+            console.log("Remove block with id: ads_left")
+            adsLeft.remove()
         }
-        onVkVideoPageLoaded(initUnsafeCheckboxAndButton);
-    }, window.navigator?.hardwareConcurrency ? (30000 / navigator.hardwareConcurrency) : 30000);
+
+        //clear all AdsLight functions
+        if(window.AdsLight)
+            Object.keys(window.AdsLight)
+                .filter(key => typeof window.AdsLight[key]==="function")
+                .forEach(key => Object.defineProperty(window.AdsLight,key, {
+                    value:() => {}
+                }))
+
+        //patch window ads properties
+        Object.defineProperties(window, {
+            noAds: {
+                value:true,
+                configurable:true
+            },
+            noAdsAtAll: {
+                value:true,
+                configurable:true
+            },
+            no_left_ads: {
+                value:true,
+                configurable:true
+            },
+            no_ads: {
+                value:true,
+                configurable:true
+            },
+            isNoAdsForce: {
+                value:true,
+                configurable:true
+            },
+            hide_ad: {
+                value:true,
+                configurable:true
+            },
+            ya_direct: {
+                value:false,
+                configurable:true
+            },
+            yaDIrectAdActive: {
+                value:false,
+                configurable:true
+            },
+            __adsSet: {
+                value:() => {},
+                configurable:true
+            },
+            __adsUpdate: {
+                value:() => {},
+                configurable:true
+            },
+            AdmanHTML: {
+                value:false,
+                configurable:true
+            },
+            audioAdsConfig: {
+                value:false,
+                configurable:true
+            },
+            __adsGetAjaxParams: {
+                value:() => {},
+                configurable:true
+            },
+            __adsLoader: {
+                value:() => {},
+                configurable:true
+            },
+        })
+    },30000/navigator.hardwareConcurrency)
 })();
